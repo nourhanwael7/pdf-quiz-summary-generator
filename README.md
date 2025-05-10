@@ -64,7 +64,7 @@ streamlit run app.py
 ## 🔧 Customization
 
 - **Change LLM Model**: Edit the `MODEL_NAME` variable in `src/llm_interface.py`
-- **Modify UI**: Adjust styling in `assets/styles.py`
+- **Modify UI**: Adjust styling in `ui/styles.py`
 - **Adjust Prompts**: Edit prompt templates in the summary and quiz generator files
 
 ## 📚 Project Structure
