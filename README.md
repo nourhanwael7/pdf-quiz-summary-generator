@@ -61,25 +61,5 @@ streamlit run app.py
 4. View the generated content or take the interactive quiz
 5. Copy summaries to clipboard or submit quizzes to see your score
 
-## 🔧 Customization
-
-- **Change LLM Model**: Edit the `MODEL_NAME` variable in `src/llm_interface.py`
-- **Modify UI**: Adjust styling in `ui/styles.py`
-- **Adjust Prompts**: Edit prompt templates in the summary and quiz generator files
-
-## 📚 Project Structure
-
-```
-pdf-quiz-summary-generator/
-├── app.py                   # Main Streamlit application
-├── src/
-│   ├── pdf_processor.py     # PDF text extraction functionality
-│   ├── llm_interface.py     # Ollama API interaction functions
-│   ├── summary_generator.py # Summary generation logic
-│   ├── quiz_generator.py    # Quiz generation and processing logic
-│   └── ui_components.py     # Streamlit UI components
-└── assets/
-    └── styles.py            # CSS styles for Streamlit UI
-```
 
 
