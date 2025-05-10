@@ -7,34 +7,34 @@ logger = logging.getLogger(__name__)
 
 def generate_summary_prompt(pdf_content: str) -> str:
     """
-    Create the prompt to generate the summary
+    Create a prompt to generate a comprehensive and detailed summary of a document.
+    The summary will include extensive details with each point on a separate line,
+    read the entire file, and ensure no important information is skipped.
+    """
+    # Process the full content without any truncation
+    full_content = pdf_content
     
-    Args:
-        pdf_content: Text extracted from PDF
-        
-    Returns:
-        Formatted prompt for the LLM
-    """
     prompt = f"""
-    Task: You are an expert educational content summarizer. Analyze the following PDF content and generate a comprehensive summary.
+You are an expert document analyst tasked with creating a comprehensive and detailed summary. 
+Analyze the ENTIRE document thoroughly without skipping any sections or important information.
 
-    PDF Content:
-    ```
-    {pdf_content[:5000]}
-    ```
+DOCUMENT CONTENT:
+```
+{full_content}
+```
 
-    Summary Requirements:
-    1. Provide a detailed and comprehensive summary of the content
-    2. Maintain all important points and key ideas
-    3. Include main arguments, critical details, and major concepts
-    4. Make the summary clear, coherent, and informative
-    5. Structure the summary with logical flow using paragraphs and bullet points when appropriate
-    6. The summary should allow someone to understand the essence of the document without reading it in full
+SUMMARY INSTRUCTIONS:
+1. Create an EXTREMELY DETAILED summary that captures ALL key information
+2. Present each point on its own line for maximum clarity and readability
+3. Ensure the summary is comprehensive, covering ALL sections of the document
+4. Do not skip ANY important information, no matter how minor it may seem
+5. Organize the information in a logical, structured format
 
-    Your summary should be thorough yet concise, capturing the document's core message and important details.
-    """
+
+Your summary must be so detailed and comprehensive that someone could understand 
+the COMPLETE content of the document without reading the original. Leave nothing important out.
+"""
     return prompt
-
 def generate_summary(pdf_content: str) -> str:
     """
     Generate a summary from PDF content

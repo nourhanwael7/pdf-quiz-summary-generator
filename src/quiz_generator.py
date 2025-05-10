@@ -8,54 +8,51 @@ logger = logging.getLogger(__name__)
 
 def generate_quiz_prompt(pdf_content: str) -> str:
     """
-    Create the prompt to generate the quiz
+    Create the prompt to generate a quiz from the entire PDF content without any character limit.
+    """
+    # Use the full content without truncation
+    full_content = pdf_content
     
-    Args:
-        pdf_content: Text extracted from PDF
-        
-    Returns:
-        Formatted prompt for the LLM
-    """
     prompt = f"""
-    Task: You are an expert educational quiz creator. Analyze the following PDF content and generate a multiple-choice quiz.
+Task: You are an expert educational quiz creator. Analyze the following PDF content and generate a multiple-choice quiz.
 
-    PDF Content:
-    ```
-    {pdf_content[:3000]}
-    ```
+PDF Content:
+```
+{full_content}
+```
 
-    Quiz Requirements:
-    1. Create 10 questions (or fewer if content is limited).
-    2. Each question MUST include:
-       - A clear and direct question
-       - EXACTLY four answer options (A, B, C, D)
-       - One correct answer
-       - A brief explanation of the correct answer
-    3. Ensure that all questions have exactly 4 options, not more, not less.
+Quiz Requirements:
+1. Create 10 questions (or fewer if content is limited).
+2. Each question MUST include:
+   - A clear and direct question
+   - EXACTLY four answer options (A, B, C, D)
+   - One correct answer
+   - A brief explanation of the correct answer
+3. Ensure that all questions have exactly 4 options, not more, not less.
 
-    Return the result in strict JSON format as follows:
+Return the result in strict JSON format as follows:
 
-    ```json
+```json
+{{
+  "questions": [
     {{
-      "questions": [
-        {{
-          "question": "First question text",
-          "options": ["Option A", "Option B", "Option C", "Option D"],
-          "correctAnswer": "The correct option exactly as written",
-          "explanation": "Explanation for the correct answer"
-        }},
-        {{
-          "question": "Second question text",
-          "options": ["Option A", "Option B", "Option C", "Option D"],
-          "correctAnswer": "The correct option",
-          "explanation": "Explanation for the correct answer"
-        }}
-      ]
+      "question": "First question text",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "correctAnswer": "The correct option exactly as written",
+      "explanation": "Explanation for the correct answer"
+    }},
+    {{
+      "question": "Second question text",
+      "options": ["Option A", "Option B", "Option C", "Option D"],
+      "correctAnswer": "The correct option",
+      "explanation": "Explanation for the correct answer"
     }}
-    ```
+  ]
+}}
+```
 
-    Start your response directly with ```json and end with ``` — any extra formatting outside of these tags will cause processing errors.
-    """
+Start your response directly with ```json and end with ``` — any extra formatting outside of these tags will cause processing errors.
+"""
     return prompt
 
 def ensure_four_options(quiz_data: Dict[str, Any]) -> Dict[str, Any]:
